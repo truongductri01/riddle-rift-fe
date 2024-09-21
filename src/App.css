@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+@import url("./styles/animations.css");
+
+:root {
+  font-size: 16px;
+
+  --primary-brown: #a65814;
+  --secondary-brown: #f1dfc7;
+  --third-brown: #fbf4df;
+
+  --primary-blue: #037aff;
+  --primary-red: #ff8c8c;
+  --primary-green: #15b785;
+
+  --white: white;
+  --black: black;
+}
+
+body {
+  font-family: "Karla", "Merriweather", serif;
+}
+
+.App {
+  height: 100svh;
+  width: 100svw;
+  max-height: 100%;
+  max-width: 100%;
+
+  padding: 2.5rem 1.5rem;
+}
+
+.App.normal {
+  background-color: var(--secondary-brown);
+}
+
+.App.ending {
+  background-image: url("./assets/endingScene.webp");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}

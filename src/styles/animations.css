@@ -1,0 +1,23 @@
+.slide-in-right {
+  position: relative;
+  -webkit-animation: slide 0.5s ease-in;
+  animation: slide 0.5s ease-in;
+}
+
+@-webkit-keyframes slide {
+  0% {
+    left: -100vw;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes slide {
+  0% {
+    left: -100vw;
+  }
+  100% {
+    left: 0;
+  }
+}
