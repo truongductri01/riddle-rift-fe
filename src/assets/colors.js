@@ -4,9 +4,11 @@ export const colors = {
   "third-brown": "#fbf4df",
 
   "primary-blue": "#037aff",
-  "primary-red": "#ff8c8c",
+  "primary-red": "#c70c15",
   "primary-green": "#15b785",
   "primary-yellow": "#FFD059",
+
+  "primary-purple": "#6838ED",
 
   white: "white",
   black: "black",

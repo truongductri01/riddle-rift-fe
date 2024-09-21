@@ -212,7 +212,7 @@ const TeamInfo = ({ team, handleOnTeamNameChange, handleOnTeamRemoved }) => {
       <DeleteIcon
         width={"2.5rem"}
         height={"2.5rem"}
-        color={colors["primary-brown"]}
+        color={colors["primary-red"]}
         onClick={() => handleOnTeamRemoved(team.id)}
         className="cursor-pointer"
       />
