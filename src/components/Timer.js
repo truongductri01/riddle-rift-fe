@@ -10,7 +10,6 @@ function Timer({ initialTime, setTimeUp }) {
         if (prevTime === 0) {
           clearInterval(timerInterval);
           // Perform actions when the timer reaches zero
-          console.log("Countdown complete!");
           setTimeUp?.(true);
           return 0;
         } else {

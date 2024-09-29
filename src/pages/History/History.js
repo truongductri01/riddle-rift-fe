@@ -90,11 +90,19 @@ function History({ game, setShowHistory }) {
 
                         <div className="w-full flex flex-wrap gap-[0.25rem] items-center justify-center">
                           {h?.result?.activeActions?.map((action) => (
-                            <ActiveAction action={action} team={team} />
+                            <ActiveAction
+                              action={action}
+                              team={team}
+                              teams={teams}
+                            />
                           ))}
 
                           {h?.result?.counteredActions?.map((action) => (
-                            <CounteredAction action={action} team={team} />
+                            <CounteredAction
+                              action={action}
+                              team={team}
+                              teams={teams}
+                            />
                           ))}
 
                           {h?.result?.uselessActions?.map((action) => (
@@ -123,8 +131,8 @@ function History({ game, setShowHistory }) {
   );
 }
 
-const ActiveAction = ({ action, team }) => {
-  if (action.actor === team.id && action?.cards?.length > 0) {
+export const ActiveAction = ({ action, team, teams }) => {
+  if (action.activator === team.id && action?.cards?.length > 0) {
     return (
       <>
         {action?.cards?.map((card) => {
@@ -133,13 +141,22 @@ const ActiveAction = ({ action, team }) => {
         })}
       </>
     );
+  } else if (
+    action.activator === team.id &&
+    action?.actionName === "WinnerAttackAction"
+  ) {
+    return (
+      <div className="w-max px-[0.5rem] rounded-md bg-white h-[3.75rem] flex justify-center items-center">
+        <p>You attacked {action?.targets.map((tId) => teams[tId]?.name)}</p>
+      </div>
+    );
   } else {
     return null;
   }
 };
 
-const CounteredAction = ({ action, team }) => {
-  if (action.actor === team.id && action?.cards?.length > 0) {
+export const CounteredAction = ({ action, team, teams }) => {
+  if (action.activator === team.id && action?.cards?.length > 0) {
     return (
       <>
         {action?.cards?.map((card) => {
@@ -155,13 +172,25 @@ const CounteredAction = ({ action, team }) => {
         })}
       </>
     );
+  } else if (
+    action.activator === team.id &&
+    action?.actionName === "WinnerAttackAction"
+  ) {
+    return (
+      <div className="w-max px-[0.5rem] rounded-md bg-white h-[3.75rem] flex justify-center items-center">
+        <p>
+          Your attack against {action?.targets.map((tId) => teams[tId]?.name)}{" "}
+          is countered
+        </p>
+      </div>
+    );
   } else {
     return null;
   }
 };
 
-const UselessAction = ({ action, team }) => {
-  if (action.actor === team.id && action?.cards?.length > 0) {
+export const UselessAction = ({ action, team }) => {
+  if (action.activator === team.id && action?.cards?.length > 0) {
     return (
       <>
         {action?.cards?.map((card) => {

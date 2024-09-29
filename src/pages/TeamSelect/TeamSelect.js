@@ -14,8 +14,6 @@ function TeamSelect({
   const { name } = playerInfo;
   const [selectedTeam, setSelectedTeam] = useState({ id: "" });
 
-  console.log(name);
-
   useEffect(() => {
     on(eventNames.on.teamSelectResponse, (teamId) => {
       setGame((prev) => ({

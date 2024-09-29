@@ -1,8 +1,11 @@
 import React from "react";
-import { cards } from "../../../components/cards/cards";
-import SmallCard from "../../../components/SmallCard";
 import PrimaryButton from "../../../components/PrimaryButton";
 import { eventNames, getSocket } from "../../../socket/socket";
+import {
+  ActiveAction,
+  CounteredAction,
+  UselessAction,
+} from "../../History/History";
 
 function Result({ game, setGame, setMessage, setShowLoading }) {
   const { currentRound, teams, playerInfo } = game;
@@ -76,17 +79,29 @@ function Result({ game, setGame, setMessage, setShowLoading }) {
 
                       <div className="w-full flex flex-wrap gap-[0.25rem] items-center justify-center">
                         {currentRound?.result?.activeActions?.map((action) => (
-                          <ActiveAction action={action} team={team} />
+                          <ActiveAction
+                            action={action}
+                            team={team}
+                            teams={teams}
+                          />
                         ))}
 
                         {currentRound?.result?.counteredActions?.map(
                           (action) => (
-                            <CounteredAction action={action} team={team} />
+                            <CounteredAction
+                              action={action}
+                              team={team}
+                              teams={teams}
+                            />
                           )
                         )}
 
                         {currentRound?.result?.uselessActions?.map((action) => (
-                          <UselessAction action={action} team={team} />
+                          <UselessAction
+                            action={action}
+                            team={team}
+                            teams={teams}
+                          />
                         ))}
                       </div>
                     </div>
@@ -138,64 +153,5 @@ function Result({ game, setGame, setMessage, setShowLoading }) {
     </div>
   );
 }
-
-const ActiveAction = ({ action, team }) => {
-  if (action.actor === team.id && action?.cards?.length > 0) {
-    return (
-      <>
-        {action?.cards?.map((card) => {
-          let actualCard = cards[card.type];
-          return <SmallCard {...actualCard} imgSource={actualCard.img} />;
-        })}
-      </>
-    );
-  } else {
-    return null;
-  }
-};
-
-const CounteredAction = ({ action, team }) => {
-  if (action.actor === team.id && action?.cards?.length > 0) {
-    return (
-      <>
-        {action?.cards?.map((card) => {
-          let actualCard = cards[card.type];
-          return (
-            <SmallCard
-              {...actualCard}
-              imgSource={actualCard.img}
-              isCovered
-              coveredText={"Countered"}
-            />
-          );
-        })}
-      </>
-    );
-  } else {
-    return null;
-  }
-};
-
-const UselessAction = ({ action, team }) => {
-  if (action.actor === team.id && action?.cards?.length > 0) {
-    return (
-      <>
-        {action?.cards?.map((card) => {
-          let actualCard = cards[card.type];
-          return (
-            <SmallCard
-              {...actualCard}
-              imgSource={actualCard.img}
-              isCovered
-              coveredText={"Useless"}
-            />
-          );
-        })}
-      </>
-    );
-  } else {
-    return null;
-  }
-};
 
 export default Result;
