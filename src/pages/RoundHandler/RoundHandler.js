@@ -36,8 +36,15 @@ function RoundHandler({ setShowLoading, game, setGame, setMessage }) {
         <GameWaitingRoom {...commonProps} />
       )}
 
-      {currentRound.stage === roundStages.INSTANT_CARD_SESSION && (
-        <p>Generating cards for the game ...</p>
+      {(currentRound.stage === roundStages.INSTANT_CARD_SESSION ||
+        currentRound.stage === roundStages.GENERATE_CARDS) && (
+        <div className="w-full h-full flex flex-col items-center pt-[4rem]">
+          {currentRound.index === 0 ? (
+            <p>Generating cards for the game ...</p>
+          ) : (
+            <p>Getting ready for the next round ...</p>
+          )}
+        </div>
       )}
       {currentRound.stage === roundStages.SELECT_USE_CARDS && (
         <PreRound {...commonProps} />
@@ -52,7 +59,8 @@ function RoundHandler({ setShowLoading, game, setGame, setMessage }) {
           <ReadyForRiddle {...commonProps} />
         )}
       {currentRound.stage === roundStages.RIDDLE && <Riddle {...commonProps} />}
-      {currentRound.stage === roundStages.WINNER_DECISION && (
+      {(currentRound.stage === roundStages.WINNER_DECISION ||
+        currentRound.stage === roundStages.CALCULATE_RESULT) && (
         <WinnerDecision {...commonProps} />
       )}
       {currentRound.stage === roundStages.RESULT && <Result {...commonProps} />}

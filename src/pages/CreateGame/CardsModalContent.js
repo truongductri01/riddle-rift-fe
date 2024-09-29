@@ -24,12 +24,10 @@ function CardsModalContent({
 
   useEffect(() => {
     if (Object.keys(cardsAmountConfig).length === 0) {
-      console.log("default config >>>", getDefaultCardsSetting());
       setTempoCardsAmountConfig(getDefaultCardsSetting());
     } else {
       setTempoCardsAmountConfig(cardsAmountConfig);
     }
-    console.log("cards amount within terminal >>>", cardsAmountConfig);
   }, []);
 
   useEffect(() => {
@@ -73,10 +71,11 @@ function CardsModalContent({
 
       <div className="w-full h-full flex flex-col gap-[1rem] overflow-auto">
         {allowCards.map((card) => {
-          console.log(card);
-          console.log("tempo config >>>", tempoCardsAmountConfig);
           return (
-            <div className="w-full flex justify-between" key={card.type}>
+            <div
+              className="w-full flex justify-between flex-wrap gap-[0.25rem]"
+              key={card.type}
+            >
               <SmallCard
                 text={card.text}
                 type={card.type}
@@ -90,6 +89,7 @@ function CardsModalContent({
                 onChange={(value) => {
                   handleSingleCardCountChange(value, card.type);
                 }}
+                className={" ml-auto float-right"}
               />
             </div>
           );

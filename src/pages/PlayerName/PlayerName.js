@@ -13,18 +13,6 @@ function PlayerName({
   const [playerName, setPlayerName] = useState("");
 
   useEffect(() => {
-    // on(eventNames.on.playerJoinResponse, (data) => {
-    //   console.log("data >>>", data);
-
-    //   const { success, playerName, id } = data;
-    //   setShowLoading(false);
-
-    //   if (success) {
-    //     updateGameData({ ...gameData, playerName, playerId: id });
-    //     goNext();
-    //   }
-    // });
-
     on(eventNames.on.playerJoinResponse, (data) => {
       const { isSuccess, playerName } = data;
 

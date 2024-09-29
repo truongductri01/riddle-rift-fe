@@ -20,13 +20,6 @@ function Riddle({ game, setGame, setShowLoading, setMessage }) {
     }
   }, [currentRound?.riddleSessionStarttime]);
 
-  console.log(
-    "Calculating time >>>",
-    Date.now(),
-    currentRound?.riddleSessionStarttime,
-    (Date.now() - currentRound?.riddleSessionStarttime) / 1000
-  );
-
   return (
     <div className="Riddle w-full h-full flex flex-col gap-[1.25rem] overflow-auto items-center">
       <div className="w-full flex justify-between">

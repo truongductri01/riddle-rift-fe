@@ -54,7 +54,6 @@ function App() {
     let tempoGame = {};
     if (localStorage.getItem("gameData")) {
       tempoGame = JSON.parse(localStorage.getItem("gameData"));
-      console.log("teampoGame >>>", tempoGame);
       setGame(tempoGame);
     }
 
@@ -62,7 +61,6 @@ function App() {
     setupSocket();
 
     newSocket.on("connect", () => {
-      console.log("connected");
       if (getGameIdLocal()) {
         newSocket.emit(
           eventNames.emit.confirmPlayerRequest,
@@ -76,11 +74,9 @@ function App() {
 
     // game Status
     on(eventNames.on.gameStatus, (gameFromServer) => {
-      console.log("game from game status", gameFromServer);
       setGame(gameFromServer);
 
       if (!gameFromServer.playerInfo || !gameFromServer.playerInfo.teamId) {
-        console.log("no needed data >>>");
         handleGoTo(stages.PLAYER_NAME);
       }
 
@@ -91,21 +87,17 @@ function App() {
     });
 
     on(eventNames.on.gameStatusChange, (gameId) => {
-      console.log("game status change");
       newSocket.emit(eventNames.emit.getGameStatusEvent, gameId);
     });
 
     // error
     on(eventNames.on.error, (message) => {
-      console.log("error message >>>", message);
       setMessage(message);
       setShowLoading(false);
     });
 
     // confirm player id
     on(eventNames.on.confirmPlayerResponse, (playerId, gameId) => {
-      console.log("playerId >>>", playerId);
-
       setGame((prev) => ({ ...prev, playerId, id: gameId }));
       setGameId(gameId);
       setGameIdLocal(gameId);
@@ -123,7 +115,6 @@ function App() {
     let loadingTimeout = setTimeout(() => setShowLoading(false), 1500);
 
     const handleOnUnmount = () => {
-      console.log("calling before disconnect");
       newSocket.emit("before-disconnect", gameId);
     };
     window.addEventListener("beforeunload", handleOnUnmount);

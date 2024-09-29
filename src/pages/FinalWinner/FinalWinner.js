@@ -52,6 +52,7 @@ function FinalWinner({ game }) {
       <PrimaryButton
         className="w-max rounded-full"
         onClick={() => {
+          localStorage.clear();
           window.location.reload();
         }}
       >

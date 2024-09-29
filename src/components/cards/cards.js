@@ -2,15 +2,29 @@ import { imgSources } from "../../assets/imageSources";
 
 // these should be used for backend actually
 export const cardTypes = {
-  ATTACK: "Attack",
-  DEFENSE: "Defense",
-  HEALING: "Healing",
+  ATTACK: "ATTACK",
+  DEFENSE: "DEFENSE",
+  HEALING: "HEALING",
+  SHUFFLE: "SHUFFLE",
+  VIEW_1_CARD: "VIEW_1_CARD",
+  STEAL_1_CARD: "STEAL_1_CARD",
+  DRAW_1_CARD: "DRAW_1_CARD",
+  SWAP_HEALTH: "SWAP_HEALTH",
+  BLOCK_SWAP_HEALTH: "BLOCK_SWAP_HEALTH",
+};
+
+export const targetTypes = {
+  ALL: "ALL",
+  MULTIPLE: "MULTIPLE",
+  SELF: "SELF",
+  SINGLE_TARGET: "SINGLE_TARGET",
+  COMBINE_WITH_WINNER_ATTACH: "COMBINE_WITH_WINNER_ATTACH",
 };
 
 export const cards = {
   [cardTypes.ATTACK]: {
     // this will be combine with the attack to be counted as 1 action
-    text: "Increase your next attack damage by 1",
+    text: `Increase your next attack damage (only if you are the winner) by 1. Will be countered by '${cardTypes.DEFENSE}' card`,
     activateOnAttack: true, // only effective if on attack
     damage: 1,
     heal: 0,
@@ -37,6 +51,19 @@ export const cards = {
     countered: null,
     type: cardTypes.HEALING,
   },
+  [cardTypes.BLOCK_SWAP_HEALTH]: {
+    text: "Block Swap Health Card from other team",
+    img: imgSources.BLOCK_SWAP_HEALTH,
+    type: cardTypes.BLOCK_SWAP_HEALTH,
+    name: "BLOCK",
+  },
+  [cardTypes.SWAP_HEALTH]: {
+    text: "Choose another team and swap your team's health with theirs",
+    img: imgSources.SWAP_HEALTH,
+    type: cardTypes.SWAP_HEALTH,
+    name: "SWAP",
+    targetType: targetTypes.SINGLE_TARGET,
+  },
 };
 
 export const allowCards = Object.keys(cards).map((key) => cards[key]);
@@ -44,7 +71,11 @@ export const allowCards = Object.keys(cards).map((key) => cards[key]);
 export const getDefaultCardsSetting = () => {
   let defaultSettings = {};
   for (let key in cards) {
-    defaultSettings[key] = 5;
+    if (key === cardTypes.SWAP_HEALTH || key === cardTypes.BLOCK_SWAP_HEALTH) {
+      defaultSettings[key] = 1;
+    } else {
+      defaultSettings[key] = 3;
+    }
   }
   return defaultSettings;
 };
@@ -55,14 +86,12 @@ export const generateCard = async (data) => {
   let result = [];
 
   for (let type in data) {
-    console.log(type);
     let count = data[type];
     for (let i = 0; i < count; i++) {
       await new Promise((resolve) => setTimeout(resolve, 100));
       result.push({ ...cards[type], id: Date.now().toString() });
     }
   }
-  console.log(result);
 
   return result;
 };

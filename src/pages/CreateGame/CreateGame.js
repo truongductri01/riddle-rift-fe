@@ -28,13 +28,10 @@ function CreateGame({
   const [error, setError] = useState("");
   const [gameId, setGameId] = useState();
 
-  const navigate = useNavigate();
-
   useState(() => {
     setGameId(getGameIdLocal());
 
     on(eventNames.on.createGameResponse, (data) => {
-      console.log("received from create game >>>", data);
       const { config, teams, gameId } = data;
 
       setGameIdLocal(gameId);
@@ -42,8 +39,6 @@ function CreateGame({
       setGame({ config, teams });
 
       setShowLoading(false);
-      // navigate("/");
-      // window.location.reload();
     });
   }, []);
 
@@ -254,9 +249,10 @@ export const NumberInputFormVertical = ({
   secondPTag,
   placeholder,
   onChange,
+  className,
 }) => {
   return (
-    <div className=" w-max flex flex-col justify-between">
+    <div className={` w-max flex flex-col justify-between ${className}`}>
       <p>{firstPTag}</p>
       <div className="flex flex-col items-center gap-[0.25rem]">
         <input
