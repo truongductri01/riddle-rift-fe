@@ -5,6 +5,7 @@ import SWORD from "./sword.jpg";
 import DELETE_SVG from "./delete.svg";
 import SWAP_HEALTH from "./swapHealth.png";
 import BLOCK_SWAP_HEALTH from "./block_swap_health.png";
+import LOGO from "./Logo_5.png";
 
 export const imgSources = {
   ENDING_SCENE,
@@ -14,4 +15,5 @@ export const imgSources = {
   DELETE_SVG,
   SWAP_HEALTH,
   BLOCK_SWAP_HEALTH,
+  LOGO,
 };

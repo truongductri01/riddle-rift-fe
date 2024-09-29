@@ -98,7 +98,7 @@ function CreateGame({
   };
 
   return (
-    <div className="CreateGame w-full h-full flex flex-col justify-start items-center gap-[2rem]">
+    <div className="CreateGame w-full h-full overflow-hidden flex flex-col justify-start items-center gap-[2rem]">
       <Modal show={showCardsModal} setShow={setShowCardsModal}>
         <CardsModalContent
           cardsAmountConfig={cardsAmountConfig}
@@ -165,20 +165,22 @@ function CreateGame({
         <SettingCardDetailsButton onClick={() => setShowCardsModal(true)} />
       </div>
 
-      <div className=" w-full h-full flex flex-col gap-[0.75rem] overflow-auto transition-all ease-in delay-1000">
-        <div className="w-full h-[2.5rem] flex items-center justify-between sticky top-0 bg-secondary-brown z-[1]">
+      <div className="w-full h-full overflow-hidden flex flex-col gap-[0.75rem]">
+        <div className="w-full h-[2.5rem] flex items-center justify-between z-[1]">
           <p>Teams: {teams.length}</p>
           <AddTeamButton onClick={handleAddTeam} />
         </div>
 
-        {teams.map((t) => (
-          <TeamInfo
-            key={t.id}
-            team={t}
-            handleOnTeamNameChange={handleOnTeamNameChange}
-            handleOnTeamRemoved={handleOnTeamRemoved}
-          />
-        ))}
+        <div className=" w-full flex flex-col gap-[0.75rem] overflow-auto transition-all ease-in delay-1000">
+          {teams.map((t) => (
+            <TeamInfo
+              key={t.id}
+              team={t}
+              handleOnTeamNameChange={handleOnTeamNameChange}
+              handleOnTeamRemoved={handleOnTeamRemoved}
+            />
+          ))}
+        </div>
       </div>
 
       {error && <p className="text-primary-red text-[1.25rem]">{error}</p>}

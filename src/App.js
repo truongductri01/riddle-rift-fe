@@ -11,7 +11,7 @@ import {
   on,
   setupSocket,
 } from "./socket/socket";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import GameWaitingRoom from "./pages/GameWaitingRoom/GameWaitingRoom";
 import PrimaryButton from "./components/PrimaryButton";
 import RoundHandler from "./pages/RoundHandler/RoundHandler";
@@ -20,6 +20,7 @@ import { getGameIdLocal, setGameIdLocal } from "./helpers/gameIdUtils";
 import EnterGameId from "./pages/EnterGameId/EnterGameId";
 import Modal from "./components/Modal";
 import History from "./pages/History/History";
+import { imgSources } from "./assets/imageSources";
 
 const stages = {
   PLAYER_JOIN: "player_join",
@@ -31,6 +32,7 @@ const stages = {
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isEndingScene, setIsEndingScene] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [stage, setStage] = useState(stages.PLAYER_JOIN);
@@ -62,7 +64,7 @@ function App() {
 
     newSocket.on("connect", () => {
       console.log("socket connected");
-      if (getGameIdLocal() && location.pathname !== "/create") {
+      if (getGameIdLocal() && location.pathname === "/join") {
         newSocket.emit(
           eventNames.emit.confirmPlayerRequest,
           tempoGame.playerId,
@@ -81,7 +83,7 @@ function App() {
         handleGoTo(stages.PLAYER_NAME);
       }
 
-      if (gameFromServer?.finalWinner && location.pathname !== "/create") {
+      if (gameFromServer?.finalWinner && location.pathname === "/join") {
         setIsEndingScene(true);
       }
       setShowLoading(false);
@@ -155,34 +157,68 @@ function App() {
   };
 
   return (
-    <div className={`App ${isEndingScene ? " ending" : " normal"}`}>
-      <LoadingSignal showLoading={showLoading} />
+    <div className={`App`}>
+      <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-85 py-[2.5rem] px-[1.5rem]">
+        <LoadingSignal showLoading={showLoading} />
 
-      <div className="fixed bottom-0 left-0 flex items-center gap-[0.5rem]">
-        <p
-          className="cursor-pointer bg-primary-red text-white px-[0.5rem] py-[0.25rem] rounded-t-[0.5rem]"
+        <div className="fixed bottom-0 left-0 flex items-center gap-[0.5rem]">
+          <p
+            className="cursor-pointer bg-primary-red text-white px-[0.5rem] py-[0.25rem] rounded-t-[0.5rem]"
+            onClick={() => {
+              localStorage.clear();
+              window.location.reload();
+            }}
+          >
+            Reset
+          </p>
+        </div>
+
+        {/* logo */}
+        <div
+          className="Logo w-max flex items-center gap-[0.5rem] cursor-pointer mb-[1rem]"
           onClick={() => {
-            localStorage.clear();
-            // localStorage.setItem("stage", stages.PLAYER_JOIN);
-            // localStorage.setItem("gameId", "");
-            window.location.reload();
+            navigate("/");
           }}
         >
-          Reset
-        </p>
-      </div>
+          <img src={imgSources.LOGO} className="w-[2.5rem] h-[2.5rem]"></img>
+          <p>Riddle Rift</p>
+        </div>
 
-      {location.pathname === "/create" && <CreateGame {...commonProps} />}
+        {location.pathname === "/" && (
+          <div className="w-full h-full flex flex-col justify-center items-center gap-[1.25rem]">
+            <p>
+              Welcome to{" "}
+              <span className="text-[1.5rem] text-primary-brown">
+                Riddle Rift
+              </span>
+            </p>
+            <div className="w-full h-max flex justify-center items-center gap-[1rem]">
+              <PrimaryButton
+                className="bg-primary-green"
+                onClick={() => {
+                  navigate("/create");
+                }}
+              >
+                Create Game
+              </PrimaryButton>
+              <PrimaryButton
+                onClick={() => {
+                  navigate("/join");
+                }}
+              >
+                Join Game
+              </PrimaryButton>
+            </div>
+          </div>
+        )}
 
-      {(!gameId || gameId !== game?.id) &&
-        location.pathname !== "/create" &&
-        location.pathname !== "/log" && <EnterGameId />}
+        {location.pathname === "/create" && <CreateGame {...commonProps} />}
 
-      {gameId &&
-        location.pathname !== "/create" &&
-        location.pathname !== "/log" &&
-        isGameRunning &&
-        !game?.finalWinner && (
+        {(!gameId || gameId !== game?.id) && location.pathname === "/join" && (
+          <EnterGameId />
+        )}
+
+        {gameId && location.pathname === "/join" && isGameRunning && (
           <>
             <p className="fixed top-2 left-2 text-[0.75rem] z-[1]">
               Game Id: {gameId}
@@ -205,66 +241,66 @@ function App() {
           </>
         )}
 
-      {/* other routes and stages */}
-      {gameId &&
-        location.pathname !== "/create" &&
-        location.pathname !== "/log" &&
-        isGameRunning &&
-        (game?.finalWinner ? (
-          <FinalWinner {...commonProps} />
-        ) : game?.currentRound?.stage && game?.playerInfo?.teamId ? (
-          <RoundHandler {...commonProps} />
-        ) : (
-          <>
-            <p>{message}</p>
-            {stage === stages.PLAYER_JOIN && (
-              <PrimaryButton
-                onClick={() => {
-                  let socket = getSocket();
+        {/* other routes and stages */}
+        {gameId &&
+          location.pathname === "/join" &&
+          isGameRunning &&
+          (game?.finalWinner ? (
+            <FinalWinner {...commonProps} />
+          ) : game?.currentRound?.stage && game?.playerInfo?.teamId ? (
+            <RoundHandler {...commonProps} />
+          ) : (
+            <>
+              <p>{message}</p>
+              {stage === stages.PLAYER_JOIN && (
+                <PrimaryButton
+                  onClick={() => {
+                    let socket = getSocket();
 
-                  socket.emit(
-                    eventNames.emit.confirmPlayerRequest,
-                    game?.playerId,
-                    gameId
-                  );
-                }}
-              >
-                Join Game
-              </PrimaryButton>
-            )}
-            {stage === stages.PLAYER_NAME && (
-              <PlayerName
-                {...commonProps}
-                goNext={() => handleGoTo(stages.TEAM_SELECT)}
-                goBack={() => {}}
-              />
-            )}
-            {stage === stages.TEAM_SELECT && (
-              <TeamSelect
-                {...commonProps}
-                goNext={() => handleGoTo(stages.WAITING_ROOM)}
-                goBack={() => handleGoTo(stages.PLAYER_NAME)}
-              />
-            )}
-            {stage === stages.WAITING_ROOM && (
-              <GameWaitingRoom
-                {...commonProps}
-                goNext={() => handleGoTo(stages.PRE_ROUND)}
-                goBack={() => handleGoTo(stages.TEAM_SELECT)}
-              />
-            )}
-          </>
-        ))}
+                    socket.emit(
+                      eventNames.emit.confirmPlayerRequest,
+                      game?.playerId,
+                      gameId
+                    );
+                  }}
+                >
+                  Join Game
+                </PrimaryButton>
+              )}
+              {stage === stages.PLAYER_NAME && (
+                <PlayerName
+                  {...commonProps}
+                  goNext={() => handleGoTo(stages.TEAM_SELECT)}
+                  goBack={() => {}}
+                />
+              )}
+              {stage === stages.TEAM_SELECT && (
+                <TeamSelect
+                  {...commonProps}
+                  goNext={() => handleGoTo(stages.WAITING_ROOM)}
+                  goBack={() => handleGoTo(stages.PLAYER_NAME)}
+                />
+              )}
+              {stage === stages.WAITING_ROOM && (
+                <GameWaitingRoom
+                  {...commonProps}
+                  goNext={() => handleGoTo(stages.PRE_ROUND)}
+                  goBack={() => handleGoTo(stages.TEAM_SELECT)}
+                />
+              )}
+            </>
+          ))}
 
-      {!isGameRunning && (
-        <p className="w-full text-center">There is no running game</p>
-      )}
+        {!isGameRunning && (
+          <p className="w-full text-center">There is no running game</p>
+        )}
 
-      {location.pathname === "/log" && (
-        <div className="w-full h-full overflow-auto">
-          <pre>{JSON.stringify(game, null, 2)}</pre>
-        </div>
-      )}
+        {location.pathname === "/log" && (
+          <div className="w-full h-full overflow-auto">
+            <pre>{JSON.stringify(game, null, 2)}</pre>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

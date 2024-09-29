@@ -27,17 +27,13 @@ body {
   width: 100svw;
   max-height: 100%;
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
 
-  padding: 2.5rem 1.5rem;
-}
-
-.App.normal {
   background-color: var(--secondary-brown);
-}
-
-.App.ending {
-  background-image: url("./assets/endingScene.webp");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  background-position: center;
+  background-image: url("./assets/Background1.jpeg");
 }
