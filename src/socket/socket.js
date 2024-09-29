@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client";
 
-// export const backendUrl = "http://10.0.0.42:8080/";
-export const backendUrl = "https://riddle-rift-dev.azurewebsites.net/";
+export const backendUrl = "http://10.0.0.42:8080/";
+// export const backendUrl = "https://riddle-rift-dev.azurewebsites.net/";
 
 // event names
 export const eventNames = {

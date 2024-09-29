@@ -61,7 +61,8 @@ function App() {
     setupSocket();
 
     newSocket.on("connect", () => {
-      if (getGameIdLocal()) {
+      console.log("socket connected");
+      if (getGameIdLocal() && location.pathname !== "/create") {
         newSocket.emit(
           eventNames.emit.confirmPlayerRequest,
           tempoGame.playerId,
@@ -112,8 +113,6 @@ function App() {
       }
     });
 
-    let loadingTimeout = setTimeout(() => setShowLoading(false), 1500);
-
     const handleOnUnmount = () => {
       newSocket.emit("before-disconnect", gameId);
     };
@@ -122,7 +121,6 @@ function App() {
     return () => {
       window.removeEventListener("beforeunload", handleOnUnmount);
       newSocket.disconnect();
-      clearTimeout(loadingTimeout);
     };
   }, []);
 
