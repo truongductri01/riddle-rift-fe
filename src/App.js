@@ -252,21 +252,6 @@ function App() {
           ) : (
             <>
               <p>{message}</p>
-              {stage === stages.PLAYER_JOIN && (
-                <PrimaryButton
-                  onClick={() => {
-                    let socket = getSocket();
-
-                    socket.emit(
-                      eventNames.emit.confirmPlayerRequest,
-                      game?.playerId,
-                      gameId
-                    );
-                  }}
-                >
-                  Join Game
-                </PrimaryButton>
-              )}
               {stage === stages.PLAYER_NAME && (
                 <PlayerName
                   {...commonProps}

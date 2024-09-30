@@ -196,6 +196,7 @@ const SelectTargetModal = ({
             <>
               {team.id !== teamId ? (
                 <div
+                  key={tId}
                   className={`w-[6.25rem] h-[6.25rem]  flex items-center justify-center rounded-[0.5rem] cursor-pointer border-2 ${
                     targets.includes(team.id)
                       ? " bg-primary-blue text-white border-white"

@@ -39,20 +39,6 @@ function Result({ game, setGame, setMessage, setShowLoading }) {
               <p className="w-full text-primary-brown text-[1.25rem] text-center">
                 No winner, no team get attacked
               </p>
-
-              {Object.keys(teams)
-                ?.sort(
-                  // team with more health point shows up first
-                  (a, b) =>
-                    currentRound?.result?.teams?.[b]?.healthPoint -
-                    currentRound?.result?.teams?.[a]?.healthPoint
-                )
-                .map((tId) => (
-                  <div className="w-full flex justify-center items-center gap-[0.5rem] bg-third-brown rounded-[0.5rem] py-[1rem] border-b-2 border-b-primary-brown">
-                    <p>{teams[tId]?.name}</p>
-                    <p> - HP: {teams[tId]?.healthPoint}</p>
-                  </div>
-                ))}
             </div>
           )}
 

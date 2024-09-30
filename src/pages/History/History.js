@@ -7,6 +7,13 @@ function History({ game, setShowHistory }) {
   const { teams, currentRound } = game;
   const [showTeams, setShowTeams] = useState(true);
 
+  console.log(
+    Object.keys(teams)?.sort(
+      // team with more health point shows up first
+      (a, b) => teams?.[a]?.healthPoint - teams?.[b]?.healthPoint
+    )
+  );
+
   return (
     <div className="w-full h-full flex flex-col items-center gap-[1rem] relative ">
       <p className="text-[1.25rem] text-primary-brown">History</p>
@@ -44,12 +51,13 @@ function History({ game, setShowHistory }) {
           {Object.keys(teams)
             ?.sort(
               // team with more health point shows up first
-              (a, b) =>
-                currentRound?.result?.teams?.[b]?.healthPoint -
-                currentRound?.result?.teams?.[a]?.healthPoint
+              (a, b) => teams?.[b]?.healthPoint - teams?.[a]?.healthPoint
             )
             .map((tId) => (
-              <div className="w-full flex justify-center items-center gap-[0.5rem] bg-third-brown rounded-[0.5rem] py-[1rem] border-b-2 border-b-primary-brown slide-in-right">
+              <div
+                key={tId}
+                className="w-full flex justify-center items-center gap-[0.5rem] bg-third-brown rounded-[0.5rem] py-[1rem] border-b-2 border-b-primary-brown slide-in-right"
+              >
                 <p>{teams[tId]?.name}</p>
                 <p> - HP: {teams[tId]?.healthPoint}</p>
               </div>
@@ -80,7 +88,7 @@ function History({ game, setShowHistory }) {
                     return (
                       <div
                         className="w-full flex flex-col justify-center items-center gap-[0.75rem] bg-third-brown rounded-[0.5rem] py-[1rem] border-b-2 border-b-primary-brown"
-                        key={h.index}
+                        key={`${h.index}_${id}`}
                       >
                         <p>
                           {team.name}{" "}
@@ -137,7 +145,13 @@ export const ActiveAction = ({ action, team, teams }) => {
       <>
         {action?.cards?.map((card) => {
           let actualCard = cards[card.type];
-          return <SmallCard {...actualCard} imgSource={actualCard.img} />;
+          return (
+            <SmallCard
+              {...actualCard}
+              imgSource={actualCard.img}
+              key={card.id}
+            />
+          );
         })}
       </>
     );

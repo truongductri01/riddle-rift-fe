@@ -52,6 +52,17 @@ function CreateGame({
     }
   }, [maxCard, teams, cardsTotal]);
 
+  useEffect(() => {
+    if (!maxCard || !maxHealth) {
+      setError("Max card and max health should be specified");
+    } else if (isNaN(maxCard) || isNaN(maxHealth)) {
+      setError("Max card and Max health must be integers");
+    } else {
+      setMaxCard(Number.parseInt(maxCard));
+      setMaxHealth(Number.parseInt(maxHealth));
+    }
+  }, [maxCard, maxHealth]);
+
   const handleAddTeam = () => {
     let id = Date.now().toString();
     let newTeam = {
@@ -81,6 +92,7 @@ function CreateGame({
   };
 
   const handleOnCreateGame = async () => {
+    localStorage.clear();
     let socket = getSocket();
     setShowLoading(true);
 
