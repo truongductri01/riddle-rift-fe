@@ -291,10 +291,6 @@ function App() {
             </>
           ))}
 
-        {!isGameRunning && (
-          <p className="w-full text-center">There is no running game</p>
-        )}
-
         {location.pathname === "/log" && (
           <div className="w-full h-full overflow-auto">
             <pre>{JSON.stringify(game, null, 2)}</pre>
