@@ -185,7 +185,7 @@ function CreateGame({
 
       {error && <p className="text-primary-red text-[1.25rem]">{error}</p>}
 
-      <div className="w-full flex justify-end items-end mt-auto">
+      <div className="w-full flex justify-center items-end mt-auto sticky bottom-0">
         {teams.length >= 1 && !error && (
           <CreateGameButton onClick={handleOnCreateGame} />
         )}
