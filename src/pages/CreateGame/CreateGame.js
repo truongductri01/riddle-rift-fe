@@ -110,7 +110,7 @@ function CreateGame({
   };
 
   return (
-    <div className="CreateGame w-full h-full overflow-auto flex flex-col justify-start items-center gap-[2rem]">
+    <div className="CreateGame w-full h-full overflow-auto flex flex-col justify-start items-center gap-[1rem]">
       <Modal show={showCardsModal} setShow={setShowCardsModal}>
         <CardsModalContent
           cardsAmountConfig={cardsAmountConfig}
