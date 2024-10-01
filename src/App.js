@@ -159,7 +159,7 @@ function App() {
   return (
     <div className={`App`}>
       <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-85 py-[2.5rem] px-[1.5rem]">
-        <LoadingSignal showLoading={showLoading} />
+        {/* <LoadingSignal showLoading={showLoading} /> */}
 
         <div className="fixed bottom-0 left-0 flex items-center gap-[0.5rem]">
           <p
@@ -180,7 +180,7 @@ function App() {
             navigate("/");
           }}
         >
-          <img src={imgSources.LOGO} className="w-[2.5rem] h-[2.5rem]"></img>
+          <img src={imgSources.LOGO2} className="w-[3rem] h-[3rem]"></img>
           <p>Riddle Rift</p>
         </div>
 
