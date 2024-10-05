@@ -7,7 +7,7 @@ function Timer({ initialTime, setTimeUp }) {
   useEffect(() => {
     const timerInterval = setInterval(() => {
       setTimeRemaining((prevTime) => {
-        if (prevTime === 0) {
+        if (prevTime <= 0) {
           clearInterval(timerInterval);
           // Perform actions when the timer reaches zero
           setTimeUp?.(true);

@@ -58,6 +58,8 @@ function WinnerDecision({ game, setGame, setMessage, setShowLoading }) {
                       teamIdToAttack,
                       game.id
                     );
+
+                    setShowLoading(true);
                   }}
                 >
                   Attack

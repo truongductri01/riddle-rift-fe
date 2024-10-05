@@ -102,6 +102,8 @@ function Result({ game, setGame, setMessage, setShowLoading }) {
               let socket = getSocket();
 
               socket.emit(eventNames.emit.teamReadyRequest, teamId, game.id);
+
+              setShowLoading(true);
             }}
           >
             Continue
