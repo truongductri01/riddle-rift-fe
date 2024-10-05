@@ -95,7 +95,8 @@ function App() {
 
     // error
     on(eventNames.on.error, (message) => {
-      setMessage(message);
+      console.log(message);
+      // setMessage(message);
       setShowLoading(false);
     });
 
@@ -159,7 +160,7 @@ function App() {
   return (
     <div className={`App`}>
       <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-85 py-[2.5rem] px-[1.5rem]">
-        {/* <LoadingSignal showLoading={showLoading} /> */}
+        <LoadingSignal showLoading={showLoading} />
 
         <div className="fixed bottom-0 left-0 flex items-center gap-[0.5rem]">
           <p
