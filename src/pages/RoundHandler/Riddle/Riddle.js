@@ -30,7 +30,7 @@ function Riddle({ game, setGame, setShowLoading, setMessage }) {
 
           {!currentRound?.answeredTeams?.includes(teamId) ? (
             <div className="w-full flex justify-end">
-              {answer && (
+              {answer && teams[teamId].healthPoint > 0 && (
                 <PrimaryButton
                   onClick={() => {
                     let socket = getSocket();
@@ -49,6 +49,10 @@ function Riddle({ game, setGame, setShowLoading, setMessage }) {
                 >
                   Submit your answer
                 </PrimaryButton>
+              )}
+
+              {teams[teamId].healthPoint <= 0 && (
+                <p>Your team has no more life point to answer.</p>
               )}
             </div>
           ) : (
