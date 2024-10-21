@@ -15,7 +15,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import GameWaitingRoom from "./pages/GameWaitingRoom/GameWaitingRoom";
 import PrimaryButton from "./components/PrimaryButton";
 import RoundHandler from "./pages/RoundHandler/RoundHandler";
-import FinalWinner from "./pages/FinalWinner/FinalWinner";
 import { getGameIdLocal, setGameIdLocal } from "./helpers/gameIdUtils";
 import EnterGameId from "./pages/EnterGameId/EnterGameId";
 import Modal from "./components/Modal";
@@ -77,9 +76,14 @@ function App() {
 
     // game Status
     on(eventNames.on.gameStatus, (gameFromServer) => {
+      console.log("game from the server >>>", gameFromServer);
       setGame(gameFromServer);
 
-      if (!gameFromServer.playerInfo || !gameFromServer.playerInfo.teamId) {
+      if (
+        !gameFromServer.playerInfo ||
+        (!gameFromServer.playerInfo.teamId &&
+          !gameFromServer.playerInfo.isAdmin)
+      ) {
         handleGoTo(stages.PLAYER_NAME);
       }
 
@@ -179,6 +183,8 @@ function App() {
           className="Logo w-max flex items-center gap-[0.5rem] cursor-pointer mb-[1rem]"
           onClick={() => {
             navigate("/");
+            localStorage.clear();
+            window.location.reload();
           }}
         >
           <img src={imgSources.LOGO2} className="w-[3rem] h-[3rem]"></img>
@@ -244,38 +250,38 @@ function App() {
 
         {/* other routes and stages */}
         {gameId &&
-          location.pathname === "/join" &&
-          isGameRunning &&
-          (game?.finalWinner ? (
-            <FinalWinner {...commonProps} />
-          ) : game?.currentRound?.stage && game?.playerInfo?.teamId ? (
-            <RoundHandler {...commonProps} />
-          ) : (
-            <>
-              <p>{message}</p>
-              {stage === stages.PLAYER_NAME && (
-                <PlayerName
-                  {...commonProps}
-                  goNext={() => handleGoTo(stages.TEAM_SELECT)}
-                  goBack={() => {}}
-                />
-              )}
-              {stage === stages.TEAM_SELECT && (
-                <TeamSelect
-                  {...commonProps}
-                  goNext={() => handleGoTo(stages.WAITING_ROOM)}
-                  goBack={() => handleGoTo(stages.PLAYER_NAME)}
-                />
-              )}
-              {stage === stages.WAITING_ROOM && (
-                <GameWaitingRoom
-                  {...commonProps}
-                  goNext={() => handleGoTo(stages.PRE_ROUND)}
-                  goBack={() => handleGoTo(stages.TEAM_SELECT)}
-                />
-              )}
-            </>
-          ))}
+        location.pathname === "/join" &&
+        isGameRunning &&
+        ((game?.currentRound?.stage && game?.playerInfo?.teamId) ||
+          game?.playerInfo?.isAdmin ||
+          game?.finalWinner) ? (
+          <RoundHandler {...commonProps} />
+        ) : (
+          <>
+            <p>{message}</p>
+            {stage === stages.PLAYER_NAME && (
+              <PlayerName
+                {...commonProps}
+                goNext={() => handleGoTo(stages.TEAM_SELECT)}
+                goBack={() => {}}
+              />
+            )}
+            {stage === stages.TEAM_SELECT && (
+              <TeamSelect
+                {...commonProps}
+                goNext={() => handleGoTo(stages.WAITING_ROOM)}
+                goBack={() => handleGoTo(stages.PLAYER_NAME)}
+              />
+            )}
+            {stage === stages.WAITING_ROOM && !game?.playerInfo?.isAdmin && (
+              <GameWaitingRoom
+                {...commonProps}
+                goNext={() => handleGoTo(stages.PRE_ROUND)}
+                goBack={() => handleGoTo(stages.TEAM_SELECT)}
+              />
+            )}
+          </>
+        )}
 
         {location.pathname === "/log" && (
           <div className="w-full h-full overflow-auto">

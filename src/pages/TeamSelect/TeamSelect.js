@@ -13,6 +13,7 @@ function TeamSelect({
   const { teams } = config;
   const { name } = playerInfo;
   const [selectedTeam, setSelectedTeam] = useState({ id: "" });
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     on(eventNames.on.teamSelectResponse, (teamId) => {
@@ -24,6 +25,15 @@ function TeamSelect({
       setShowLoading(false);
       goNext();
     });
+    on(eventNames.on.joinAsAdminResponse, () => {
+      setGame((prev) => ({
+        ...prev,
+        playerInfo: { ...prev.playerInfo, isAdmin: true },
+      }));
+      setMessage("successfully join as admin");
+      setShowLoading(false);
+      goNext();
+    });
   }, []);
 
   const handleOnJoinGame = async () => {
@@ -31,6 +41,13 @@ function TeamSelect({
     setShowLoading(true);
     socket.emit(eventNames.emit.teamSelectRequest, selectedTeam.id, game.id);
   };
+
+  const handleJoinAsAdmin = () => {
+    let socket = getSocket();
+    setShowLoading(true);
+    socket.emit(eventNames.emit.joinAsAdmin, game.id);
+  };
+
   return (
     <div className="TeamSelect w-full h-full flex flex-col items-center justify-start gap-[2rem]">
       {goBack && (
@@ -55,24 +72,48 @@ function TeamSelect({
                     ? " bg-primary-blue text-white"
                     : " bg-white text-black"
                 }`}
-            onClick={() => setSelectedTeam(t)}
+            onClick={() => {
+              setSelectedTeam(t);
+              setIsAdmin(false);
+            }}
           >
             <p className=" text-[0.75rem]">{t.name}</p>
           </div>
         ))}
+        <div
+          key="admin"
+          className={` cursor-pointer w-[6.25rem] h-[6.25rem] flex items-center justify-center  border-primary-brown border-[1px] rounded-[0.5rem]
+                transition duration-500 ease-in-out
+                ${
+                  isAdmin
+                    ? " bg-primary-blue text-white"
+                    : " bg-white text-black"
+                }`}
+          onClick={() => {
+            setIsAdmin(true);
+            setSelectedTeam({ id: "" });
+          }}
+        >
+          <p className=" text-[0.75rem]">Admin of the game</p>
+        </div>
       </div>
-      {selectedTeam.id && <JoinGameButton onClick={handleOnJoinGame} />}
+      {selectedTeam.id && (
+        <JoinGameButton onClick={handleOnJoinGame} title="Join Game" />
+      )}
+      {isAdmin && (
+        <JoinGameButton onClick={handleJoinAsAdmin} title="Join As Admin" />
+      )}
     </div>
   );
 }
 
-const JoinGameButton = ({ onClick }) => {
+const JoinGameButton = ({ onClick, title }) => {
   return (
     <div
       onClick={onClick}
       className="flex w-max h-max mt-auto items-center justify-center py-[0.5rem] px-[1.5rem] bg-primary-blue text-white rounded-[0.5rem] border-white border-[1px] cursor-pointer"
     >
-      <p>Join Game</p>
+      <p>{title}</p>
     </div>
   );
 };

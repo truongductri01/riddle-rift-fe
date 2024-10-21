@@ -9,6 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { getGameIdLocal, setGameIdLocal } from "../../helpers/gameIdUtils";
 import PrimaryButton from "../../components/PrimaryButton";
 
+const maxLimitHealth = 10;
+const maxLimitCards = 5;
+const maxLimitRounds = 7;
+
 function CreateGame({
   setShowLoading,
   updateGameData,
@@ -21,6 +25,7 @@ function CreateGame({
   const [teams, setTeams] = useState([]);
   const [maxHealth, setMaxHealth] = useState(5);
   const [maxCard, setMaxCard] = useState(3);
+  const [maxRound, setMaxRound] = useState(5);
   const [showCardsModal, setShowCardsModal] = useState(false);
   const [cardsTotal, setCardsTotal] = useState(0);
   const [cardsAmountConfig, setCardsAmountConfig] = useState({});
@@ -57,11 +62,38 @@ function CreateGame({
       setError("Max card and max health should be specified");
     } else if (isNaN(maxCard) || isNaN(maxHealth)) {
       setError("Max card and Max health must be integers");
+    } else if (
+      Number.parseInt(maxCard) > maxLimitCards ||
+      Number.parseInt(maxCard) < 1
+    ) {
+      setError(`Max card must be between 1 and ${maxLimitCards}`);
+    } else if (
+      Number.parseInt(maxHealth) > maxLimitHealth ||
+      Number.parseInt(maxHealth) < 1
+    ) {
+      setError(`Max card must be between 1 and ${maxLimitHealth}`);
     } else {
       setMaxCard(Number.parseInt(maxCard));
       setMaxHealth(Number.parseInt(maxHealth));
+      setError("");
     }
   }, [maxCard, maxHealth]);
+
+  useEffect(() => {
+    if (!maxRound) {
+      setError("Max round should be specified");
+    } else if (isNaN(maxRound)) {
+      setError("Max round must be an integers");
+    } else if (
+      Number.parseInt(maxRound) > maxLimitRounds ||
+      Number.parseInt(maxRound) < 1
+    ) {
+      setError("Max round must be between 1 and 7");
+    } else {
+      setMaxRound(Number.parseInt(maxRound));
+      setError("");
+    }
+  }, [maxRound]);
 
   const handleAddTeam = () => {
     let id = Date.now().toString();
@@ -99,6 +131,7 @@ function CreateGame({
     let newGameConfig = {
       maxHealth: Number.parseInt(maxHealth),
       maxCard: Number.parseInt(maxCard),
+      maxRound: Number.parseInt(maxRound),
       teams: [...teams],
       cardsAmountConfig,
       gameName,
@@ -153,19 +186,27 @@ function CreateGame({
         />
       </div>
 
+      {/* Important numbers */}
       <div className="w-full flex justify-between">
-        <NumberInputForm
+        <NumberInputFormVertical
           firstPTag="Health per team"
           secondPTag="(max 10)"
           value={maxHealth}
           setValue={setMaxHealth}
         />
 
-        <NumberInputForm
+        <NumberInputFormVertical
           firstPTag="Cards per team"
           secondPTag="(max 5)"
           value={maxCard}
           setValue={setMaxCard}
+        />
+
+        <NumberInputFormVertical
+          firstPTag="Number of rounds"
+          secondPTag="(max 7)"
+          value={maxRound}
+          setValue={setMaxRound}
         />
       </div>
 
