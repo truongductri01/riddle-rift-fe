@@ -5,9 +5,9 @@ import ToggleOnIcon from "../../icons/ToggleOnIcon";
 import Modal from "../../components/Modal";
 import { eventNames, getSocket, on } from "../../socket/socket";
 import CardsModalContent from "./CardsModalContent";
-import { useNavigate } from "react-router-dom";
 import { getGameIdLocal, setGameIdLocal } from "../../helpers/gameIdUtils";
 import PrimaryButton from "../../components/PrimaryButton";
+import Toggle from "../../components/Toggle";
 
 const maxLimitHealth = 10;
 const maxLimitCards = 5;
@@ -32,6 +32,9 @@ function CreateGame({
   const [gameName, setGameName] = useState("");
   const [error, setError] = useState("");
   const [gameId, setGameId] = useState();
+
+  // false means ends when only 1 player has positive life points.
+  const [gameEndsWithRounds, setGameEndsWithRounds] = useState(true);
 
   useState(() => {
     setGameId(getGameIdLocal());
@@ -95,6 +98,10 @@ function CreateGame({
     }
   }, [maxRound]);
 
+  useEffect(() => {
+    setMaxRound(5);
+  }, [gameEndsWithRounds]);
+
   const handleAddTeam = () => {
     let id = Date.now().toString();
     let newTeam = {
@@ -135,6 +142,7 @@ function CreateGame({
       teams: [...teams],
       cardsAmountConfig,
       gameName,
+      gameEndsWithRounds,
     };
 
     socket.emit(eventNames.emit.createGameRequest, {
@@ -186,6 +194,25 @@ function CreateGame({
         />
       </div>
 
+      {/* Check if they want to plays with or without rounds */}
+      <div className="w-full flex justify-between">
+        <div>
+          <p>Game ends after some rounds?</p>
+          <p className="text-[0.75rem]">
+            {gameEndsWithRounds
+              ? "Ends after some rounds"
+              : "Ends when only one team survived"}
+          </p>
+        </div>
+        <Toggle
+          value={gameEndsWithRounds}
+          setValue={setGameEndsWithRounds}
+          // displayText
+          // trueText="Ends after some rounds"
+          // falseText="Ends when only one team survived"
+        />
+      </div>
+
       {/* Important numbers */}
       <div className="w-full flex justify-between">
         <NumberInputFormVertical
@@ -202,12 +229,14 @@ function CreateGame({
           setValue={setMaxCard}
         />
 
-        <NumberInputFormVertical
-          firstPTag="Number of rounds"
-          secondPTag="(max 7)"
-          value={maxRound}
-          setValue={setMaxRound}
-        />
+        {gameEndsWithRounds && (
+          <NumberInputFormVertical
+            firstPTag="Number of rounds"
+            secondPTag="(max 7)"
+            value={maxRound}
+            setValue={setMaxRound}
+          />
+        )}
       </div>
 
       <div className="w-full flex items-center justify-between">
