@@ -4,13 +4,7 @@ import CreateGame from "./pages/CreateGame/CreateGame";
 import LoadingSignal from "./components/LoadingSignal";
 import PlayerName from "./pages/PlayerName/PlayerName";
 import TeamSelect from "./pages/TeamSelect/TeamSelect";
-import {
-  eventNames,
-  getGameStatus,
-  getSocket,
-  on,
-  setupSocket,
-} from "./socket/socket";
+import { eventNames, getSocket, on, setupSocket } from "./socket/socket";
 import { useLocation, useNavigate } from "react-router-dom";
 import GameWaitingRoom from "./pages/GameWaitingRoom/GameWaitingRoom";
 import PrimaryButton from "./components/PrimaryButton";
@@ -32,7 +26,6 @@ const stages = {
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isEndingScene, setIsEndingScene] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [stage, setStage] = useState(stages.PLAYER_JOIN);
   const [isGameRunning, setIsGameRunning] = useState(false);
@@ -87,9 +80,6 @@ function App() {
         handleGoTo(stages.PLAYER_NAME);
       }
 
-      if (gameFromServer?.finalWinner && location.pathname === "/join") {
-        setIsEndingScene(true);
-      }
       setShowLoading(false);
     });
 
@@ -163,7 +153,7 @@ function App() {
 
   return (
     <div className={`App`}>
-      <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-85 py-[2.5rem] px-[1.5rem]">
+      <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-85 py-[1rem] px-[1rem]">
         <LoadingSignal showLoading={showLoading} />
 
         <div className="fixed bottom-0 left-0 flex items-center gap-[0.5rem]">
