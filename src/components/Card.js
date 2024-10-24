@@ -100,6 +100,7 @@ const Card = ({ card, onSelectChange, selectedCards }) => {
     </div>
   );
 };
+
 const AdvancedCard = ({ card, onSelectChange, selectedCardIds }) => {
   const ref = useRef();
   const [clicked, setClicked] = useState(false);

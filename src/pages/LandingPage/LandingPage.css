@@ -1,0 +1,27 @@
+:root {
+  font-size: 16px;
+
+  --primary-brown: #a65814;
+  --secondary-brown: #f1dfc7;
+  --third-brown: #fbf4df;
+
+  --primary-blue: #037aff;
+  --primary-red: #ff8c8c;
+  --primary-green: #15b785;
+
+  --white: white;
+  --black: black;
+}
+
+.LandingPage {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../assets/Background1.jpeg");
+}

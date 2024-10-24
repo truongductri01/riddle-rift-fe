@@ -4,7 +4,13 @@ import ColorMemoryRiddle from "./ColorMemoryRiddle";
 import NumberMemoryRiddle from "./NumberMemoryRiddle";
 import MathRiddle from "./MathRiddle";
 
-function RenderRiddle({ currentRound, riddle, answer, setAnswer }) {
+function RenderRiddle({
+  currentRound,
+  riddle,
+  answer,
+  setAnswer,
+  disableTimer,
+}) {
   const [selectedAnswer, setSelectedAnswer] = useState(answer);
 
   useEffect(() => {
@@ -17,14 +23,13 @@ function RenderRiddle({ currentRound, riddle, answer, setAnswer }) {
 
   return (
     <div>
-      <p>selected: {selectedAnswer}</p>
-
       {riddle?.type === questionTypes.COLOR_MEMORY_RIDDLE && (
         <ColorMemoryRiddle
           riddle={riddle}
           riddleSessionStarttime={Date.now()}
           selectedAnswer={selectedAnswer}
           setSelectedAnswer={setSelectedAnswer}
+          disableTimer={disableTimer}
         />
       )}
 
@@ -34,6 +39,7 @@ function RenderRiddle({ currentRound, riddle, answer, setAnswer }) {
           riddleSessionStarttime={Date.now()}
           selectedAnswer={selectedAnswer}
           setSelectedAnswer={setSelectedAnswer}
+          disableTimer={disableTimer}
         />
       )}
 
@@ -46,6 +52,7 @@ function RenderRiddle({ currentRound, riddle, answer, setAnswer }) {
           }
           selectedAnswer={selectedAnswer}
           setSelectedAnswer={setSelectedAnswer}
+          disableTimer={disableTimer}
         />
       )}
     </div>

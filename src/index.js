@@ -9,6 +9,7 @@ import {
   createHashRouter,
 } from "react-router-dom";
 import SocketTest from "./test/SocketTest";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 const router = createHashRouter([
   {
@@ -17,8 +18,9 @@ const router = createHashRouter([
   },
   { path: "/", element: <App /> },
   { path: "/join", element: <App /> },
-  { path: "/test", element: <SocketTest /> },
   { path: "/log", element: <App /> },
+  { path: "/test", element: <SocketTest /> },
+  { path: "/landing", element: <LandingPage /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

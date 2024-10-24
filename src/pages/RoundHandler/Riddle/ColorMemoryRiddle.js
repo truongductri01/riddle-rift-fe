@@ -7,6 +7,7 @@ function ColorMemoryRiddle({
   riddleSessionStarttime,
   selectedAnswer,
   setSelectedAnswer,
+  disableTimer,
 }) {
   let { question } = riddle;
   let colors = question.split(", ");
@@ -32,7 +33,7 @@ function ColorMemoryRiddle({
         />
       )}
 
-      {canShowAnswer && (
+      {canShowAnswer && !disableTimer && (
         <Timer
           initialTime={Math.floor(
             (riddleSessionStarttime +

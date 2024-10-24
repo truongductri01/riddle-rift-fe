@@ -7,12 +7,13 @@ function MathRiddle({
   riddleSessionStarttime,
   selectedAnswer,
   setSelectedAnswer,
+  disableTimer,
 }) {
   const [canShowAnswer, setCanShowAnswer] = useState(true);
 
   return (
     <div className="w-full flex flex-col justify-center items-start gap-[1rem]">
-      {canShowAnswer && (
+      {canShowAnswer && !disableTimer && (
         <Timer
           initialTime={Math.floor(
             (riddleSessionStarttime +
