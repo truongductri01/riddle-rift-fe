@@ -14,14 +14,14 @@ let commonIconProps = {
 
 function SmallCard({ type, text, imgSource, isCovered, coveredText }) {
   return (
-    <div className="SmallCards relative max-w-full w-[20rem] h-[3.75rem] bg-white rounded-[0.5rem] flex shrink-0 items-center">
+    <div className="SmallCards relative max-w-full w-[20rem] h-[5rem] bg-white rounded-[0.5rem] flex shrink-0 items-center">
       {isCovered && (
         <div className="w-full h-full absolute z-10 top-0 left-0 bg-white bg-opacity-80 backdrop-blur-[1px] rounded-[0.5rem] flex items-center justify-center">
           <p className="text-black">{coveredText}</p>
         </div>
       )}
 
-      <div className="relative w-[3.75rem] h-[3.75rem] flex justify-center items-end shrink-0 pb-[0.25rem]">
+      <div className="relative w-[5rem] h-[5rem] flex justify-center items-end shrink-0 pb-[0.25rem]">
         <img
           alt="text"
           className="absolute top-0 left-0 rounded-[0.5rem] z-0"

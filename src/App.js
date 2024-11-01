@@ -153,7 +153,7 @@ function App() {
 
   return (
     <div className={`App`}>
-      <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-85 py-[1rem] px-[1rem]">
+      <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-95 py-[1rem] px-[1rem]">
         <LoadingSignal showLoading={showLoading} />
 
         <div className="fixed bottom-0 left-0 flex items-center gap-[0.5rem]">
@@ -239,36 +239,40 @@ function App() {
         )}
 
         {/* other routes and stages */}
-        {gameId &&
-        location.pathname === "/join" &&
-        isGameRunning &&
-        ((game?.currentRound?.stage && game?.playerInfo?.teamId) ||
-          game?.playerInfo?.isAdmin ||
-          game?.finalWinner) ? (
-          <RoundHandler {...commonProps} />
-        ) : (
+        {location.pathname === "/join" && (
           <>
-            <p>{message}</p>
-            {stage === stages.PLAYER_NAME && (
-              <PlayerName
-                {...commonProps}
-                goNext={() => handleGoTo(stages.TEAM_SELECT)}
-                goBack={() => {}}
-              />
-            )}
-            {stage === stages.TEAM_SELECT && (
-              <TeamSelect
-                {...commonProps}
-                goNext={() => handleGoTo(stages.WAITING_ROOM)}
-                goBack={() => handleGoTo(stages.PLAYER_NAME)}
-              />
-            )}
-            {stage === stages.WAITING_ROOM && !game?.playerInfo?.isAdmin && (
-              <GameWaitingRoom
-                {...commonProps}
-                goNext={() => handleGoTo(stages.PRE_ROUND)}
-                goBack={() => handleGoTo(stages.TEAM_SELECT)}
-              />
+            {gameId &&
+            isGameRunning &&
+            ((game?.currentRound?.stage && game?.playerInfo?.teamId) ||
+              game?.playerInfo?.isAdmin ||
+              game?.finalWinner) ? (
+              <RoundHandler {...commonProps} />
+            ) : (
+              <>
+                <p>{message}</p>
+                {stage === stages.PLAYER_NAME && (
+                  <PlayerName
+                    {...commonProps}
+                    goNext={() => handleGoTo(stages.TEAM_SELECT)}
+                    goBack={() => {}}
+                  />
+                )}
+                {stage === stages.TEAM_SELECT && (
+                  <TeamSelect
+                    {...commonProps}
+                    goNext={() => handleGoTo(stages.WAITING_ROOM)}
+                    goBack={() => handleGoTo(stages.PLAYER_NAME)}
+                  />
+                )}
+                {stage === stages.WAITING_ROOM &&
+                  !game?.playerInfo?.isAdmin && (
+                    <GameWaitingRoom
+                      {...commonProps}
+                      goNext={() => handleGoTo(stages.PRE_ROUND)}
+                      goBack={() => handleGoTo(stages.TEAM_SELECT)}
+                    />
+                  )}
+              </>
             )}
           </>
         )}
