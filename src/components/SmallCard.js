@@ -28,7 +28,7 @@ function SmallCard({ type, text, imgSource, isCovered, coveredText }) {
           src={imgSource ?? cards[type].img}
         />
 
-        <div className="relative z-[1] flex items-center justify-center gap-[0.25rem] px-[0.5rem] bg-white rounded-[0.25rem]">
+        <div className="relative z-[1] flex items-center justify-center gap-[0.25rem] px-[0.5rem] bg-white rounded-[0.25rem] bg-opacity-80">
           {type === cardTypes.HEALING && <HeartIcon {...commonIconProps} />}
           {type === cardTypes.ATTACK && <LightningIcon {...commonIconProps} />}
           {type === cardTypes.DEFENSE && <ShieldIcon {...commonIconProps} />}

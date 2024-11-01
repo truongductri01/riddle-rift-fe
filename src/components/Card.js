@@ -42,7 +42,7 @@ const Card = ({ card, onSelectChange, selectedCards }) => {
           }`}
         >
           <div className="w-[6.25rem] h-[6.25rem] relative flex flex-col justify-end items-end pb-[0.5rem]">
-            <div className="z-[1] flex items-center justify-center gap-[0.25rem] px-[0.25rem] bg-white rounded-l-[0.25rem]">
+            <div className="z-[1] flex items-center justify-center gap-[0.25rem] px-[0.25rem] bg-white rounded-l-[0.25rem] bg-opacity-80">
               {card.type === cardTypes.HEALING && (
                 <HeartIcon
                   width={"0.75rem"}
