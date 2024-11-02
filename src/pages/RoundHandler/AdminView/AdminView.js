@@ -1,14 +1,95 @@
 import React, { useState } from "react";
 import SmallCard from "../../../components/SmallCard";
+import { questionTypes } from "../../../types/riddleTypes";
+import PrimaryButton from "../../../components/PrimaryButton";
+import { eventNames, getSocket } from "../../../socket/socket";
 
-function AdminView({ game }) {
+function AdminView({ game, setShowLoading }) {
   const { teams, currentRound, cards } = game;
   const [dataId, setDataId] = useState("");
+
+  const handleWinnerTeamAdminSelect = (teamId) => {
+    let socket = getSocket();
+
+    socket.emit(
+      eventNames.emit.adminActionOnRiddle,
+      {
+        teamId,
+        hasWinner: true,
+      },
+      game.id
+    );
+    setShowLoading(true);
+  };
+
+  const handleNoWinnerSelect = () => {
+    let socket = getSocket();
+
+    socket.emit(
+      eventNames.emit.adminActionOnRiddle,
+      {
+        teamId: "",
+        hasWinner: false,
+      },
+      game.id
+    );
+    setShowLoading(true);
+  };
+
   return (
     <div className="w-full h-full flex flex-col gap-[1rem] relative overflow-auto">
       <p className="w-full text-center text-[1.5rem]">Admin View</p>
       <div className="w-full h-full flex flex-col gap-[1rem] relative ">
         <p>Current Round:</p>
+
+        {/* Riddle */}
+        {game?.currentRound?.stage === "riddle" &&
+          game?.currentRound?.riddle?.type === questionTypes.ADMIN && (
+            <div className="w-full bg-white bg-opacity-80 px-[0.5rem] py-[1rem] rounded-md flex flex-col gap-[1rem]">
+              <p>Admin's input</p>
+
+              <p className="w-full text-center text-[1.5rem]">
+                Who's the a winner?
+              </p>
+
+              <div className="w-full flex flex-col gap-[0.5rem]">
+                <div className="w-full flex gap-[1rem]">
+                  {Object.keys(teams).map((teamId) => {
+                    const teamInfo = teams[teamId];
+                    return (
+                      <PrimaryButton
+                        key={teamId}
+                        className="w-full"
+                        onClick={() => {
+                          handleWinnerTeamAdminSelect(teamId);
+                        }}
+                      >
+                        <p>{teamInfo?.name}</p>
+                      </PrimaryButton>
+                    );
+                  })}
+                </div>
+
+                <PrimaryButton
+                  className="bg-primary-red"
+                  onClick={() => {
+                    handleNoWinnerSelect();
+                  }}
+                >
+                  No winner
+                </PrimaryButton>
+              </div>
+            </div>
+          )}
+        {game?.currentRound?.riddle && (
+          <div className="w-full bg-white bg-opacity-80 px-[0.5rem] py-[1rem] rounded-md">
+            <p>Riddle</p>
+            <pre className=" text-wrap">
+              {JSON.stringify(game?.currentRound?.riddle, null, 2)}
+            </pre>
+          </div>
+        )}
+
         {cards && (
           <>
             {/* Teams' Cards */}
@@ -48,16 +129,6 @@ function AdminView({ game }) {
                   </div>
                 ))}
             </div>
-
-            {/* Riddle */}
-            {game?.currentRound?.riddle && (
-              <div className="w-full bg-white bg-opacity-80 px-[0.5rem] py-[1rem] rounded-md">
-                <p>Riddle</p>
-                <pre className=" text-wrap">
-                  {JSON.stringify(game?.currentRound?.riddle, null, 2)}
-                </pre>
-              </div>
-            )}
 
             {/* Remaining Cards */}
             <div className="w-full flex flex-col bg-white bg-opacity-50 rounded-md px-[0.5rem] py-[1rem]">

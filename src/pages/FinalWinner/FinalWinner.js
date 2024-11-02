@@ -1,6 +1,7 @@
 import React from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { useNavigate } from "react-router-dom";
+import ConfettiComponent from "../../components/ConfettiComponent";
 
 function FinalWinner({ game }) {
   const { finalWinner, currentRound, teams } = game;
@@ -8,7 +9,9 @@ function FinalWinner({ game }) {
   const navigate = useNavigate();
 
   return (
-    <div className="FinalWinner w-full h-full flex flex-col bg-white bg-opacity-50 backdrop-blur-md rounded-[0.5rem] px-[1.25rem] pb-[1.25rem] gap-[1.25rem] items-center">
+    <div className="FinalWinner relative w-full h-full flex flex-col bg-white bg-opacity-70 rounded-[0.5rem] px-[1.25rem] pb-[1.25rem] gap-[1.25rem] items-center">
+      <ConfettiComponent />
+
       {/* Final winner */}
       <div className="w-full relative h-[15rem] flex items-center justify-center shrink-0">
         <div className="text-white bg-primary-purple rounded-full px-[5rem] py-[1rem] flex flex-col items-center justify-center relative z-10 slide-in-right">

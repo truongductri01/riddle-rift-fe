@@ -33,6 +33,9 @@ function CreateGame({
   const [error, setError] = useState("");
   const [gameId, setGameId] = useState();
 
+  // this later on can be changed so that it can have more options and more flexible
+  const [isRandomQuestionRound, setIsRandomQuestionRound] = useState(true);
+
   // false means ends when only 1 player has positive life points.
   const [gameEndsWithRounds, setGameEndsWithRounds] = useState(true);
 
@@ -143,6 +146,7 @@ function CreateGame({
       cardsAmountConfig,
       gameName,
       gameEndsWithRounds,
+      isRandomQuestionRound,
     };
 
     socket.emit(eventNames.emit.createGameRequest, {
@@ -204,12 +208,22 @@ function CreateGame({
               : "Ends when only one team survived"}
           </p>
         </div>
+        <Toggle value={gameEndsWithRounds} setValue={setGameEndsWithRounds} />
+      </div>
+
+      {/* Set if the rounds should be question based or admin decision based */}
+      <div className="w-full flex justify-between">
+        <div>
+          <p>Should round come with random question?</p>
+          <p className="text-[0.75rem]">
+            {isRandomQuestionRound
+              ? "The admin will give and evaluate the challenge"
+              : "Riddle each round will be generated randomly"}
+          </p>
+        </div>
         <Toggle
-          value={gameEndsWithRounds}
-          setValue={setGameEndsWithRounds}
-          // displayText
-          // trueText="Ends after some rounds"
-          // falseText="Ends when only one team survived"
+          value={isRandomQuestionRound}
+          setValue={setIsRandomQuestionRound}
         />
       </div>
 

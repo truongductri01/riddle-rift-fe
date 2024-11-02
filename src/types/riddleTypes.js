@@ -4,6 +4,7 @@ export const questionTypes = {
   NUMBER_MEMORY_RIDDLE: "NUMBER_MEMORY_RIDDLE",
   COLOR_MEMORY_RIDDLE: "COLOR_MEMORY_RIDDLE",
   RANDOM: "RANDOM",
+  ADMIN: "ADMIN",
 };
 
 export const answerTypes = {

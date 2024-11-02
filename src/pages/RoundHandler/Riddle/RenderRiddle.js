@@ -3,6 +3,7 @@ import { questionTypes } from "../../../types/riddleTypes";
 import ColorMemoryRiddle from "./ColorMemoryRiddle";
 import NumberMemoryRiddle from "./NumberMemoryRiddle";
 import MathRiddle from "./MathRiddle";
+import AdminRiddle from "./AdminRiddle";
 
 function RenderRiddle({
   currentRound,
@@ -55,6 +56,8 @@ function RenderRiddle({
           disableTimer={disableTimer}
         />
       )}
+
+      {riddle?.type === questionTypes.ADMIN && <AdminRiddle riddle={riddle} />}
     </div>
   );
 }
