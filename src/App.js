@@ -243,6 +243,8 @@ function App() {
           <>
             {gameId &&
             isGameRunning &&
+            game?.playerInfo &&
+            (game?.playerInfo?.teamId || game?.playerInfo?.isAdmin) &&
             ((game?.currentRound?.stage && game?.playerInfo?.teamId) ||
               game?.playerInfo?.isAdmin ||
               game?.finalWinner) ? (
