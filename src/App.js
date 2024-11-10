@@ -14,6 +14,7 @@ import EnterGameId from "./pages/EnterGameId/EnterGameId";
 import Modal from "./components/Modal";
 import History from "./pages/History/History";
 import { imgSources } from "./assets/imageSources";
+import Toast from "./components/Toast";
 
 const stages = {
   PLAYER_JOIN: "player_join",
@@ -155,6 +156,7 @@ function App() {
     <div className={`App`}>
       <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-90 py-[1rem] px-[1rem]">
         <LoadingSignal showLoading={showLoading} />
+        {message && <Toast message={message} />}
 
         <div className="fixed bottom-0 left-0 flex items-center gap-[0.5rem]">
           <p
@@ -251,7 +253,6 @@ function App() {
               <RoundHandler {...commonProps} />
             ) : (
               <>
-                <p>{message}</p>
                 {stage === stages.PLAYER_NAME && (
                   <PlayerName
                     {...commonProps}

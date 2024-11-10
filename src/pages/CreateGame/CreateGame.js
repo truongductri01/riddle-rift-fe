@@ -21,6 +21,7 @@ function CreateGame({
   gameData,
   game,
   setGame,
+  setMessage,
 }) {
   const [teams, setTeams] = useState([]);
   const [maxHealth, setMaxHealth] = useState(5);
@@ -176,7 +177,8 @@ function CreateGame({
             className="text-[0.75rem]"
             onClick={() => {
               navigator.clipboard.writeText(gameId);
-              alert("copied game id");
+              // alert("copied game id");
+              setMessage("Copied game id");
             }}
           >
             Copy game id
