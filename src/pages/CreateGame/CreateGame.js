@@ -186,7 +186,7 @@ function CreateGame({
 
       <p className=" text-[1.5rem]">Create a new Game</p>
 
-      <div className="w-full flex flex-col">
+      {/* <div className="w-full flex flex-col">
         <p>Game name:</p>
         <input
           className=" w-full h-[2.5rem] px-[0.5rem] text-primary-brown border-primary-brown border-[1px] rounded-[0.5rem]"
@@ -196,7 +196,7 @@ function CreateGame({
             setGameName(e.target.value);
           }}
         />
-      </div>
+      </div> */}
 
       {/* Check if they want to plays with or without rounds */}
       <div className="w-full flex justify-between">
