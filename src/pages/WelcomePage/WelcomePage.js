@@ -30,7 +30,7 @@ function WelcomePage() {
             maskPosition: "center",
           }}
         >
-          <div className="DelayAppear w-full h-full bg-secondary-brown bg-opacity-60 flex flex-col gap-[1rem] p-[1rem]">
+          <div className="DelayAppear w-full h-full bg-secondary-brown bg-opacity-60 opacity-0 flex flex-col gap-[1rem] p-[1rem]">
             <div className="w-full self-center grow-[1] flex flex-col items-center justify-center">
               <p className="text-[1.50rem]">Welcome to</p>
               <RiddleRiftText></RiddleRiftText>

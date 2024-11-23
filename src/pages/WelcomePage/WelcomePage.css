@@ -15,11 +15,12 @@
 
 .DelayAppear {
   animation: delay 3s ease-in-out 1 forwards;
+  animation-delay: 3s;
 }
 
 .fadeInAnimation {
   animation: fadeIn 2s ease-in-out 1 forwards;
-  animation-delay: 6s;
+  animation-delay: 9s;
 }
 
 @keyframes fadeIn {
