@@ -30,17 +30,17 @@ function WelcomePage() {
             maskPosition: "center",
           }}
         >
-          <div className="DelayAppear w-full h-full bg-secondary-brown bg-opacity-60 flex flex-col justify-center items-center gap-[1rem] p-[1rem]">
+          <div className="DelayAppear w-full h-full bg-secondary-brown bg-opacity-60 flex flex-col gap-[1rem] p-[1rem]">
             <div className="w-full self-center grow-[1] flex flex-col items-center justify-center">
               <p className="text-[1.50rem]">Welcome to</p>
               <RiddleRiftText></RiddleRiftText>
             </div>
-            <PrimaryButton
+            <button
               onClick={() => setStart(true)}
-              className="bg-primary-green text-[1rem] w-full shrink-0"
+              className="text-[1rem] w-max shrink-0 bg-black text-white px-[1.5rem] py-[0.5rem] rounded-md float-right ml-auto fadeInAnimation opacity-0"
             >
               Let's Start
-            </PrimaryButton>
+            </button>
           </div>
         </div>
       )}
