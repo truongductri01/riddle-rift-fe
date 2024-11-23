@@ -8,6 +8,7 @@ import CardsModalContent from "./CardsModalContent";
 import { getGameIdLocal, setGameIdLocal } from "../../helpers/gameIdUtils";
 import PrimaryButton from "../../components/PrimaryButton";
 import Toggle from "../../components/Toggle";
+import { useNavigate } from "react-router-dom";
 
 const maxLimitHealth = 10;
 const maxLimitCards = 5;
@@ -33,6 +34,8 @@ function CreateGame({
   const [gameName, setGameName] = useState("");
   const [error, setError] = useState("");
   const [gameId, setGameId] = useState();
+
+  const navigate = useNavigate();
 
   // this later on can be changed so that it can have more options and more flexible
   const [isRandomQuestionRound, setIsRandomQuestionRound] = useState(true);
@@ -177,11 +180,11 @@ function CreateGame({
             className="text-[0.75rem]"
             onClick={() => {
               navigator.clipboard.writeText(gameId);
-              // alert("copied game id");
               setMessage("Copied game id");
+              navigate("/join");
             }}
           >
-            Copy game id
+            Join game
           </PrimaryButton>
         </div>
       )}
