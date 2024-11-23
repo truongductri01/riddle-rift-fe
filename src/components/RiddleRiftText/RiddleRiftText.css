@@ -1,4 +1,4 @@
-svg path {
+svg.SVG_text path {
   fill: transparent;
   stroke: var(--black);
   stroke-width: 0.5;
