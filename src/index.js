@@ -10,13 +10,23 @@ import {
 } from "react-router-dom";
 import SocketTest from "./test/SocketTest";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import WelcomePage from "./pages/WelcomePage/WelcomePage";
 
 const router = createHashRouter([
   {
     path: "/create",
     element: <App />,
   },
-  { path: "/", element: <App /> },
+  {
+    path: "/",
+    element: <WelcomePage />,
+    children: [
+      {
+        path: "",
+        element: <App />,
+      },
+    ],
+  },
   { path: "/join", element: <App /> },
   { path: "/log", element: <App /> },
   { path: "/test", element: <SocketTest /> },

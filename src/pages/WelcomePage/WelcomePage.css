@@ -1,0 +1,27 @@
+.WelcomePage {
+  height: 100svh;
+  width: 100svw;
+  max-height: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  background-color: var(--secondary-brown);
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../assets/slimeVersion/bg6.jpeg");
+}
+
+.DelayAppear {
+  animation: delay 3s ease-in-out 1 forwards;
+}
+
+@keyframes delay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
