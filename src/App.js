@@ -67,6 +67,11 @@ function App() {
 
       setShowLoading(false);
     });
+    if (newSocket.connected) {
+      setShowLoading(false);
+    } else {
+      newSocket.connect();
+    }
 
     // game Status
     on(eventNames.on.gameStatus, (gameFromServer) => {
