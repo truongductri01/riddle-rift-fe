@@ -184,7 +184,7 @@ function App() {
             window.location.reload();
           }}
         >
-          <img src={imgSources.LOGO2} className="w-[3rem] h-[3rem]"></img>
+          <img src={imgSources.LOGO} className="w-[4rem] h-[4rem]"></img>
           <p>Riddle Rift</p>
         </div>
 

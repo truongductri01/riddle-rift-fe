@@ -4,7 +4,8 @@ import SWORD from "./sword.jpg";
 import DELETE_SVG from "./delete.svg";
 import SWAP_HEALTH from "./swapHealth.png";
 import BLOCK_SWAP_HEALTH from "./block_swap_health.png";
-import LOGO from "./Logo_5.png";
+import LOGO from "./slimeVersion/slimeLogo.png";
+import LOGO3 from "./Logo_5.png";
 import LOGO2 from "./Logo2_official.png";
 import INK_SPLASH from "./ink_splash.gif";
 
@@ -50,5 +51,6 @@ export const imgSources = {
   DELETE_SVG,
   LOGO,
   LOGO2,
+  LOGO3,
   INK_SPLASH,
 };
