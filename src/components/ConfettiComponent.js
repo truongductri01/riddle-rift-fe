@@ -10,7 +10,10 @@ function ConfettiComponent() {
   }, []);
 
   return (
-    <div className="Confetti w-full h-full absolute" ref={ref}>
+    <div
+      className={`Confetti w-full h-full absolute ${!showConfetti && "hidden"}`}
+      ref={ref}
+    >
       {showConfetti && (
         <Confetti
           width={ref?.current?.getBoundingClientRect()?.width || 0}

@@ -18,6 +18,8 @@ function History({ game, setShowHistory }) {
     <div className="w-full h-full flex flex-col items-center gap-[1rem] relative ">
       <p className="text-[1.25rem] text-primary-brown">History</p>
 
+      <p className="text-[0.75rem] z-[1]">Game Id: {game.id}</p>
+
       <div className="w-full flex gap-[1rem] items-center">
         {/* tabs */}
         <div

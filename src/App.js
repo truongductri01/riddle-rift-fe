@@ -224,9 +224,6 @@ function App() {
 
         {gameId && location.pathname === "/join" && isGameRunning && (
           <>
-            <p className="fixed top-2 left-2 text-[0.75rem] z-[1]">
-              Game Id: {gameId}
-            </p>
             <Modal
               className=" w-max"
               show={showHistory}
