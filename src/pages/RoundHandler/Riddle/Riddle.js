@@ -30,7 +30,8 @@ function Riddle({ game, setGame, setShowLoading, setMessage }) {
 
           {!currentRound?.answeredTeams?.includes(teamId) ? (
             <div className="w-full flex justify-end">
-              {answer && teams[teamId].healthPoint > 0 && (
+              {answer && (
+                // && teams[teamId].healthPoint > 0
                 <PrimaryButton
                   onClick={() => {
                     let socket = getSocket();
@@ -51,9 +52,9 @@ function Riddle({ game, setGame, setShowLoading, setMessage }) {
                 </PrimaryButton>
               )}
 
-              {teams[teamId].healthPoint <= 0 && (
+              {/* {teams[teamId].healthPoint <= 0 && (
                 <p>Your team has no more life point to answer.</p>
-              )}
+              )} */}
             </div>
           ) : (
             <div className="w-full mt-[0.5rem] flex flex-col items-center gap-[1rem]">
