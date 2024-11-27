@@ -7,7 +7,6 @@ import TeamSelect from "./pages/TeamSelect/TeamSelect";
 import { eventNames, getSocket, on, setupSocket } from "./socket/socket";
 import { useLocation, useNavigate } from "react-router-dom";
 import GameWaitingRoom from "./pages/GameWaitingRoom/GameWaitingRoom";
-import PrimaryButton from "./components/PrimaryButton";
 import RoundHandler from "./pages/RoundHandler/RoundHandler";
 import { getGameIdLocal, setGameIdLocal } from "./helpers/gameIdUtils";
 import EnterGameId from "./pages/EnterGameId/EnterGameId";
@@ -15,6 +14,7 @@ import Modal from "./components/Modal";
 import History from "./pages/History/History";
 import { imgSources } from "./assets/imageSources";
 import Toast from "./components/Toast";
+import StartingScreen from "./pages/StartingScreen/StartingScreen";
 
 const stages = {
   PLAYER_JOIN: "player_join",
@@ -191,33 +191,7 @@ function App() {
           <p>Riddle Rift</p>
         </div>
 
-        {location.pathname === "/" && (
-          <div className="w-full h-full flex flex-col justify-center items-center gap-[1.25rem]">
-            <p>
-              Welcome to{" "}
-              <span className="text-[1.5rem] text-primary-brown">
-                Riddle Rift
-              </span>
-            </p>
-            <div className="w-full h-max flex justify-center items-center gap-[1rem]">
-              <PrimaryButton
-                className="bg-primary-green"
-                onClick={() => {
-                  navigate("/create");
-                }}
-              >
-                Create Game
-              </PrimaryButton>
-              <PrimaryButton
-                onClick={() => {
-                  navigate("/join");
-                }}
-              >
-                Join Game
-              </PrimaryButton>
-            </div>
-          </div>
-        )}
+        {location.pathname === "/" && <StartingScreen />}
 
         {location.pathname === "/create" && <CreateGame {...commonProps} />}
 
