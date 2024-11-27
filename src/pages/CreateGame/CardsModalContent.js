@@ -82,7 +82,7 @@ function CardsModalContent({
                 imgSource={card.img}
               />
 
-              {/* <NumberInputFormVertical
+              <NumberInputFormVertical
                 secondPTag=""
                 placeholder="now: 0"
                 value={tempoCardsAmountConfig[card.type]}
@@ -90,7 +90,7 @@ function CardsModalContent({
                   handleSingleCardCountChange(value, card.type);
                 }}
                 className={" ml-auto float-right"}
-              /> */}
+              />
             </div>
           );
         })}
