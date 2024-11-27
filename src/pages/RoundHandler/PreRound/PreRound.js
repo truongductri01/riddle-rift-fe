@@ -40,7 +40,7 @@ function PreRound({
   };
 
   return (
-    <div className="PreRound w-full h-full flex flex-col items-center gap-[1rem] relative">
+    <div className="PreRound w-full h-full flex flex-col items-center gap-[0.5rem] relative overflow-auto">
       <SelectTargetModal
         showModal={showModal}
         teamId={teamId}

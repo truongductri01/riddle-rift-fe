@@ -159,7 +159,7 @@ function App() {
 
   return (
     <div className={`App`}>
-      <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-90 py-[1rem] px-[1rem]">
+      <div className="w-full h-full flex flex-col bg-secondary-brown bg-opacity-90 py-[0.5rem] px-[1rem]">
         <LoadingSignal showLoading={showLoading} />
         {message && <Toast message={message} />}
 
