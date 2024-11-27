@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import RiddleRiftText from "../../components/RiddleRiftText/RiddleRiftText";
-import PrimaryButton from "../../components/PrimaryButton";
 import "./WelcomePage.css";
 import { imgSources } from "../../assets/imageSources";
 
@@ -14,12 +13,12 @@ function WelcomePage() {
     setMaskUrl(`${imgSources.INK_SPLASH}?${timestamp}`);
   }, []);
   return (
-    <div>
+    <div className="w-full h-full flex flex-col max-h-full max-w-full WelcomePage">
       {start ? (
         <Outlet />
       ) : (
         <div
-          className="w-full h-full WelcomePage"
+          className="w-full h-full WelcomePage-Screen"
           style={{
             WebkitMaskImage: `url(${maskUrl})`,
             maskImage: `url(${maskUrl})`,

@@ -3,6 +3,9 @@
   width: 100svw;
   max-height: 100%;
   max-width: 100%;
+}
+
+.WelcomePage-Screen {
   display: flex;
   flex-direction: column;
   position: relative;

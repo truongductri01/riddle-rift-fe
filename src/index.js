@@ -11,6 +11,7 @@ import {
 import SocketTest from "./test/SocketTest";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import WelcomePage from "./pages/WelcomePage/WelcomePage";
+import PreviewPage from "./pages/PreviewPage/PreviewPage";
 
 const router = createHashRouter([
   {
@@ -31,6 +32,7 @@ const router = createHashRouter([
   { path: "/log", element: <App /> },
   { path: "/test", element: <SocketTest /> },
   { path: "/landing", element: <LandingPage /> },
+  { path: "/preview", element: <PreviewPage /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
