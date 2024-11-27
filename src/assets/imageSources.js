@@ -1,9 +1,4 @@
-import POTION from "./potion.jpg";
-import SHIELD from "./shield.jpg";
-import SWORD from "./sword.jpg";
 import DELETE_SVG from "./delete.svg";
-import SWAP_HEALTH from "./swapHealth.png";
-import BLOCK_SWAP_HEALTH from "./block_swap_health.png";
 import LOGO from "./slimeVersion/slimeLogo.png";
 import INK_SPLASH from "./ink_splash.gif";
 
@@ -34,16 +29,6 @@ const exportSlime = () => {
     BLOCK_SWAP_HEALTH: slimesImg.SLIME_BLOCK_SWAP_HEALTH,
   };
 };
-
-const normalImg = {
-  POTION,
-  SHIELD,
-  SWORD,
-  DELETE_SVG,
-  SWAP_HEALTH,
-  BLOCK_SWAP_HEALTH,
-};
-
 export const imgSources = {
   ...exportSlime(),
   DELETE_SVG,
