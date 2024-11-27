@@ -17,7 +17,7 @@ function ColorMemoryRiddle({
   const [canShowAnswer, setCanShowAnswer] = useState(false);
 
   return (
-    <div className="w-full flex flex-col gap-[1rem]">
+    <div className="w-full flex flex-col gap-[0.5rem]">
       {canShowQuestion && (
         <Timer
           initialTime={Math.floor(
@@ -67,7 +67,7 @@ function ColorMemoryRiddle({
 
       {canShowAnswer &&
         riddle?.answer?.type === answerTypes.MULTIPLE_CHOICE && (
-          <div className="w-full flex flex-col gap-[1rem]">
+          <div className="w-full flex flex-col gap-[0.5rem]">
             {riddle?.answer?.options.map((opt) => (
               <div
                 className="w-full flex items-center gap-[1rem] bg-white bg-opacity-40 px-[1rem] py-[1rem] rounded-[0.5rem]"
