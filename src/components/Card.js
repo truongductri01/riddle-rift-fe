@@ -15,7 +15,7 @@ const Card = ({ card, onSelectChange, selectedCards }) => {
   return (
     <div
       key={card.id}
-      className={`Card h-[10rem] w-[7rem] flex rounded-[0.5rem] transition-all duration-75 ease-in-out flex-col shadow-[0.25rem_0.25rem_0.5rem_white]`}
+      className={`Card h-[10rem] w-[7rem] flex rounded-[0.5rem] transition-all duration-75 ease-in-out flex-col shadow-[0.25rem_0.25rem_1rem_#fbf4df]`}
       ref={ref}
       style={{
         backgroundImage: `url(${cards[card.type].img})`,
